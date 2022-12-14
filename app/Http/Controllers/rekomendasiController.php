@@ -22,6 +22,9 @@ class rekomendasiController extends Controller
      */
     public function index()
     {
+        $data = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
+        $parsedata = json_decode($data);
+
         $id = Auth::user()->id;
         $semester = (Auth::user()->semester) + 1;
 
@@ -43,17 +46,81 @@ class rekomendasiController extends Controller
             }
             $listsRekomendasi = matakuliah::paginate($i);
         } else {
-            $listsRekomendasi = matakuliah::where([
-                ['semester', '=', "2"]
-            ])->get();
+            // $listsRekomendasi = matakuliah::join('statusmks', 'statusmks.fkMata', '=', 'matakuliahs.idMata', 'left outer')->where(function ($query) {
+            //     $query->where('semester', '=', '2')
+            //         ->orWhere('semester', '=', '4')
+            //         ->orWhere('semester', '=', '6')
+            //         ->orWhere('semester', '=', '8');
+            // })->where('statusmks.fkUser', '=', $id)->get();
+            $listsRekomendasi = matakuliah::join('statusmks', 'statusmks.fkMata', '=', 'matakuliahs.idMata')->where('statusmks.fkUser', '=', $id)->get();
+            $listt = array(array());
+            $j = 0;
+            if ($semester % 2 == 0) {
+                foreach ($listsRekomendasi as $dat) {
+                    for ($i = 0; $i < count($parsedata); $i++) {
+                        $se = 2;
+                        if ($parsedata[$i]->nama != $dat['namaMataKuliah']) {
+                            if ($parsedata[$i]->semester == $se || $parsedata[$i]->semester == ($se + 2) || $parsedata[$i]->semester == ($se + 4) || $parsedata[$i]->semester == ($se + 6)) {
+                                $bol = "false";
+                                if ($j > 0) {
+                                    for ($k = 0; $k < count($listt); $k++) {
+                                        if ($listt[$k][0] == $parsedata[$i]->nama) {
+                                            $bol = "true";
+                                            break;
+                                        }
+                                    }
+                                }
+                                if ($bol == "false") {
+                                    $listt[$j][0] = $parsedata[$i]->nama;
+                                    $listt[$j][1] = $parsedata[$i]->semester;
+                                    $listt[$j][2] = $parsedata[$i]->sks;
+                                    $listt[$j][3] = $parsedata[$i]->kode;
+                                    $j = $j + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                foreach ($listsRekomendasi as $dat) {
+                    for ($i = 0; $i < count($parsedata); $i++) {
+                        $se = 1;
+                        if ($parsedata[$i]->nama != $dat['namaMataKuliah']) {
+                            if ($parsedata[$i]->semester == $se || $parsedata[$i]->semester == ($se + 2) || $parsedata[$i]->semester == ($se + 4) || $parsedata[$i]->semester == ($se + 6)) {
+                                $bol = "false";
+                                if ($j > 0) {
+                                    for ($k = 0; $k < count($listt); $k++) {
+                                        if ($listt[$k][0] == $parsedata[$i]->nama) {
+                                            $bol = "true";
+                                            break;
+                                        }
+                                    }
+                                }
+                                if ($bol == "false") {
+                                    $listt[$j][0] = $parsedata[$i]->nama;
+                                    $listt[$j][1] = $parsedata[$i]->semester;
+                                    $listt[$j][2] = $parsedata[$i]->sks;
+                                    $listt[$j][3] = $parsedata[$i]->kode;
+                                    $j = $j + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            // $listtt = array_unique($listt);
         }
+
+
+
+
         // $listsRekomendasi = matakuliah::get();
         // Product::join('product_images', 'product_images.product_id', '=', 'products.id')
         //     ->join('categories', 'categories.id', '=', 'products.category_id')
         //     ->where('categories.id', $id)
         //     ->get();
         $listsMata = matakuliah::get();
-        return view('rekomendasi', compact('listsMata', 'semester', 'id',  'listsRekomendasi'));
+        return view('rekomendasi', compact('listsMata', 'semester', 'id', 'listt', 'listsRekomendasi'));
     }
 
 

@@ -170,14 +170,16 @@ $parsedata = json_decode($data);
 
                                                     <div class="modal-body">
                                                         <div class="w3-container" id="container1">
-                                                            <h2 style="text-align: center;">Kode Mata kuliah</h2>
-                                                            <div class="GFGclass" id="kodeM" style="text-align: center;"></div>
+                                                            <h2 style="text-align: center;">Nama Mata kuliah</h2>
+                                                            <div class="GFGclass" id="namaM" style="text-align: center;"></div>
                                                         </div>
                                                         <br>
                                                         <div class="d-flex mb-3" id="container1">
                                                             <div class="p-2">
-                                                                <h3 style="text-align: center;">Nama Mata kuliah</h3>
-                                                                <div style="text-align: center;" class="GFGclass" id="namaM"></div>
+                                                                <h3 style="text-align: center;">Kode Mata kuliah</h3>
+                                                                <div style="text-align: center;" class="GFGclass" id="kodeM"></div>
+
+
 
                                                             </div>
 
@@ -209,7 +211,7 @@ $parsedata = json_decode($data);
                                                         <!-- The close button in the bottom of the modal -->
                                                         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                                 Close</button> -->
-                                                        <p>Detail Mata Kuliah Sesuai Kurikulum Jurusan Informatika 2018 </p>
+                                                        <p>Detail Mata Kuliah Kurikulum Jurusan Informatika 2018 </p>
                                                     </div>
                                                 </div>
                                             </div>

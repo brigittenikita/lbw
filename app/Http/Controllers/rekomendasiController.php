@@ -110,7 +110,7 @@ class rekomendasiController extends Controller
                     if (count($listt) == 0) {
                         break;
                     }
-                    if ($listt[$i][1] <= $semester) {
+                    if ($listt[$i][1] <= $semester || $listt[$i][3] == "Pilihan") {
                         $list1[$j][0] = $listt[$i][0];
                         $list1[$j][1] = $listt[$i][1];
                         $list1[$j][2] = $listt[$i][2];
@@ -258,7 +258,7 @@ class rekomendasiController extends Controller
                     if (count($listt) == 0) {
                         break;
                     }
-                    if ($listt[$i][1] <= $semester) {
+                    if ($listt[$i][1] <= $semester || $listt[$i][3] == "Pilihan") {
                         $list1[$j][0] = $listt[$i][0];
                         $list1[$j][1] = $listt[$i][1];
                         $list1[$j][2] = $listt[$i][2];
@@ -345,6 +345,7 @@ class rekomendasiController extends Controller
                                     $list[$m][1] = $list1[$i][1];
                                     $list[$m][2] = $list1[$i][2];
                                     $list[$m][3] = $list1[$i][3];
+                                    echo ($list[$m][0] . " " . $list[$m][3] = $list1[$i][3]);
                                     $m = $m + 1;
                                 }
                             }
@@ -363,7 +364,7 @@ class rekomendasiController extends Controller
                 if ($statusSemester == "genap") {
                     for ($i = 0; $i < count($list); $i++) {
 
-                        if ($list[$i][1] % 2 == 0 && $list[$i][1] <= $semester) {
+                        if ($list[$i][1] % 2 == 0 && $list[$i][1] <= $semester || $list[$i][1] % 2 == 0 && $list[$i][3] == "Pilihan") {
                             $listFilter[$t][0] = $list[$i][0];
                             $listFilter[$t][1] = $list[$i][1];
                             $listFilter[$t][2] = $list[$i][2];
@@ -374,7 +375,7 @@ class rekomendasiController extends Controller
                 } else {
                     for ($i = 0; $i < count($list); $i++) {
 
-                        if ($list[$i][1] % 2 != 0 && $list[$i][1] <= $semester) {
+                        if ($list[$i][1] % 2 != 0 && $list[$i][1] <= $semester || $list[$i][1] % 2 != 0 && $list[$i][3] == "Pilihan") {
                             $listFilter[$t][0] = $list[$i][0];
                             $listFilter[$t][1] = $list[$i][1];
                             $listFilter[$t][2] = $list[$i][2];
@@ -385,40 +386,8 @@ class rekomendasiController extends Controller
                 }
                 // 
 
-                // 
-                // $listFilter = array(array());
-                // $statusSemester = "genap";
-                // if ($semester % 2 == 0) {
-                //     $statusSemester = "genap";
-                // } else {
-                //     $statusSemester = "ganjil";
-                // }
-                // $t = 0;
-                // if ($statusSemester == "genap") {
-                //     for ($i = 0; $i < count($listt); $i++) {
 
-                //         if ($listt[$i][1] % 2 == 0 && $listt[$i][1] <= $semester) {
-                //             $listFilter[$t][0] = $listt[$i][0];
-                //             $listFilter[$t][1] = $listt[$i][1];
-                //             $listFilter[$t][2] = $listt[$i][2];
-                //             $listFilter[$t][3] = $listt[$i][3];
-                //             $t = $t + 1;
-                //         }
-                //     }
-                // } else {
-                //     for ($i = 0; $i < count($listt); $i++) {
-
-                //         if ($listt[$i][1] % 2 != 0 && $listt[$i][1] <= $semester) {
-                //             $listFilter[$t][0] = $listt[$i][0];
-                //             $listFilter[$t][1] = $listt[$i][1];
-                //             $listFilter[$t][2] = $listt[$i][2];
-                //             $listFilter[$t][3] = $listt[$i][3];
-                //             $t = $t + 1;
-                //         }
-                //     }
-                // }
-
-                return view('rekomendasi', compact('listsLulus', 'record', 'record1', 'listsTempuh', 'nama', 'listFilter', 'listsMata', 'semester', 'id', 'listt',  'listsRekomendasi'));
+                return view('rekomendasi', compact('listsLulus', 'record', 'record1', 'listsTempuh', 'nama', 'listFilter', 'listsMata', 'semester', 'id', 'list1', 'list', 'listt', 'listsRekomendasi'));
             }
 
 

@@ -31,6 +31,7 @@ class rekomendasiController extends Controller
         $semester = (Auth::user()->semester + 1);
 
         $record = statusmk::where(['fkUser' =>  $id]);
+        // untuk mahasiswa yang belum mengambil semua mata kuliah
         if (!$record->exists()) {
             $listsRekomendasi1 = matakuliah::paginate(18);
 
@@ -55,7 +56,9 @@ class rekomendasiController extends Controller
             $listsRekomendasi = matakuliah::paginate($i);
 
             return view('rekomendasi', compact('listsMata', 'record', 'list', 'list1', 'listsTempuh', 'listt', 'semester', 'nama', 'id', 'listsRekomendasi'));
-        } else {
+        }
+        // jika sudah mengambil mata kuliah
+        else {
             $listsRekomendasi = matakuliah::join('statusmks', 'statusmks.fkMata', '=', 'matakuliahs.idMata')->where('statusmks.fkUser', '=', $id)->where('statusmks.status', '=', 'lulus')->get();
             $listsTempuh = matakuliah::join('statusmks', 'statusmks.fkMata', '=', 'matakuliahs.idMata')->where('statusmks.fkUser', '=', $id)->get();
             $listsLulus = matakuliah::join('statusmks', 'statusmks.fkMata', '=', 'matakuliahs.idMata')->where('statusmks.fkUser', '=', $id)->where('statusmks.status', '=', 'lulus')->get();
@@ -67,7 +70,7 @@ class rekomendasiController extends Controller
 
             $listt = array(array());
             $j = 0;
-
+            //untuk mencari mata kuliah yang belum lulus / belum mengambil
             for ($i = 0; $i < count($parsedata); $i++) {
 
                 foreach ($listsRekomendasi as $dat) {
@@ -102,7 +105,10 @@ class rekomendasiController extends Controller
 
 
             // cek syarat
+            // untuk user yg udah pernah masukin mata kuliah
+            // dan ada setidaknya 1 yang udah lulus mata kuliah
             if ($record1->exists()) {
+
                 $list1 = array(array());
                 $j = 0;
                 // echo (count($listt));
@@ -236,8 +242,10 @@ class rekomendasiController extends Controller
                         }
                     }
                 }
-                return view('rekomendasi', compact('listsLulus', 'record', 'record1', 'listsTempuh', 'nama', 'listsMata', 'listFilter', 'semester', 'id', 'listt', 'list1', 'list', 'listsRekomendasi'));
-            } else {
+                return view('rekomendasi', compact('listsLulus', 'listsKosong', 'record', 'record1', 'listsTempuh', 'nama', 'listsMata', 'listFilter', 'semester', 'id', 'listt', 'list1', 'list', 'listsLulus', 'listsRekomendasi'));
+            }
+            //  else
+            else {
                 $listt = array(array());
                 $t = 0;
                 foreach ($listLeft as $left) {
@@ -387,7 +395,7 @@ class rekomendasiController extends Controller
                 // 
 
 
-                return view('rekomendasi', compact('listsLulus', 'record', 'record1', 'listsTempuh', 'nama', 'listFilter', 'listsMata', 'semester', 'id', 'list1', 'list', 'listt', 'listsRekomendasi'));
+                return view('rekomendasi', compact('listsLulus', 'listsKosong', 'record', 'record1', 'listsTempuh', 'listsLulus', 'nama', 'listFilter', 'listsMata', 'semester', 'id', 'list1', 'list', 'listt', 'listsRekomendasi'));
             }
 
 
@@ -406,40 +414,42 @@ class rekomendasiController extends Controller
         ];
 
         $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect()->route('rekomendasi.index')->with('status', 'fails')
-                ->withInput()
-                ->withErrors($validator);
-        } else {
-            $data = $request->input();
-            try {
-                $record = statusmk::where(['fkMata' =>  $data['fkMata']]);
-                if ($record->exists()) {
-                    $input = $request->except('fkMata', 'fkUser', '_token', '_method');
-                    $karr = statusmk::where('fkMata', $data['fkMata']);
-                    $karr->update($input);
-                } else {
-                    $mata = new statusmk();
-                    $id = Auth::user()->id;
-
-                    $mata->status = $data['status'];
-                    $mata->fkMata = $data['fkMata'];
-                    $mata->fkUser = $id;
-                    $mata->save();
-                }
+        // if ($validator->fails()) {
+        //     return redirect()->route('rekomendasi.index')->with('status', 'fails')
+        //         ->withInput()
+        //         ->withErrors($validator);
+        // } else {
 
 
+        $data = $request->input();
+        //     try {
+        //         $record = statusmk::where(['fkMata' =>  $data['fkMata']]);
+        //         if ($record->exists()) {
+        //             $input = $request->except('fkMata', 'fkUser', '_token', '_method');
+        //             $karr = statusmk::where('fkMata', $data['fkMata']);
+        //             $karr->update($input);
+        //         } else {
+        $mata = new statusmk();
+        $id = Auth::user()->id;
+
+        $mata->status = $data['status'];
+        $mata->fkMata = $data['fkMata'];
+        $mata->fkUser = $id;
+        $mata->save();
+        // }
 
 
 
-                // toast('data berhasi di tambahkan');
-                // Alert::success('SuccessAlert', 'Tambah Kota');
 
-                return redirect()->route('rekomendasi.index')->with('status', 'Insert successfully');
-            } catch (Exception $e) {
-                return redirect()->route('rekomendasi.index')->with('status', 'operation failed');
-            }
-        }
+
+        // toast('data berhasi di tambahkan');
+        // Alert::success('SuccessAlert', 'Tambah Kota');
+
+        return redirect()->route('rekomendasi.index')->with('status', 'Insert successfully');
+        // } catch (Exception $e) {
+        //     return redirect()->route('rekomendasi.index')->with('status', 'operation failed');
+        // }
+        // }
     }
 }
 // if ($semester % 2 == 0) {

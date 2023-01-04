@@ -2,6 +2,7 @@
 
 @section('content')
 <?php
+//mengambil
 $data = file_get_contents("https://ftisunpar.github.io/data/prasyarat.json");
 
 
@@ -40,6 +41,7 @@ $parsedata = json_decode($data);
                         if ($parsedata[$i]->semester === $j) {
                         ?>
                             <tr>
+                                <!-- modal -->
                                 <td class="tempuh" style="display:none;">
                                     ~
                                     <?php
@@ -88,6 +90,10 @@ $parsedata = json_decode($data);
                                     }
                                     ?>
                                 </td>
+
+                                <!-- end modal -->
+
+
                                 <td class=" kode"><?php echo $parsedata[$i]->kode; ?></td>
 
                                 <td class="nama"> <?php echo $parsedata[$i]->nama; ?></td>

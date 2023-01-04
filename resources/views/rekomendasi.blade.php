@@ -87,7 +87,7 @@
     ?>
         <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
 
-            <h2>Daftar Mata Kuliah Rekomendasi Untuk Semester {{$semester}}</h2>
+            <h2>Daftar Mata Kuliah Awal Semester</h2>
 
             <table class="table">
 
@@ -107,7 +107,7 @@
                     <td>{{$listLulus->namaMataKuliah}} </td>
                     <td> {{$listLulus->kode}}</td>
                     <td> {{$listLulus->semester}} </td>
-                    <td> {{$listLulus->namaMataKuliah}} </td>
+                    <td> {{$listLulus->keterangan}} </td>
                 </tr>
                 @endforeach
 
@@ -149,8 +149,175 @@
 
                 </table>
 
-            </div> <?php } else {
-                    ?>
+            </div>
+
+
+            <!-- <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($list); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $list[$row][0]  ?></td>
+                            <td><?php echo $list[$row][1]  ?></td>
+                            <td><?php echo $list[$row][2]  ?></td>
+                            <td><?php echo $list[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div>
+
+
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($list1); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $list1[$row][0]  ?></td>
+                            <td><?php echo $list1[$row][1]  ?></td>
+                            <td><?php echo $list1[$row][2]  ?></td>
+                            <td><?php echo $list1[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div>
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($listt); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $listt[$row][0]  ?></td>
+                            <td><?php echo $listt[$row][1]  ?></td>
+                            <td><?php echo $listt[$row][2]  ?></td>
+                            <td><?php echo $listt[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div> -->
+
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Sudah Lulus </h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    @foreach($listsLulus as $list)
+                    <tr style="border: 1px solid #ddd;padding: 70px;">
+                        <td>{{$no}}</td>
+                        <td>{{$list->namaMataKuliah}}</td>
+                        <td>{{$list->semester}}</td>
+                        <td>{{$list->sks}}</td>
+                        <td>{{$list->keterangan}}</td>
+                    </tr>
+                    <?php $no = $no + 1 ?>
+                    @endforeach
+                </table>
+
+            </div>
+
+
+
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Pernah Tidak Lulus </h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    @foreach($listsKosong as $list)
+                    <tr style="border: 1px solid #ddd;padding: 70px;">
+                        <td>{{$no}}</td>
+                        <td>{{$list->namaMataKuliah}}</td>
+                        <td>{{$list->semester}}</td>
+                        <td>{{$list->sks}}</td>
+                        <td>{{$list->keterangan}}</td>
+                    </tr>
+                    <?php $no = $no + 1 ?>
+                    @endforeach
+                </table>
+
+            </div>
+
+
+
+
+
+        <?php } else {
+        ?>
             <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
 
                 <h2>Daftar Mata Kuliah Rekomendasi Untuk Semester {{$semester}}</h2>
@@ -184,6 +351,165 @@
 
 
             <!--  -->
+
+            <!-- 
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($list); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $list[$row][0]  ?></td>
+                            <td><?php echo $list[$row][1]  ?></td>
+                            <td><?php echo $list[$row][2]  ?></td>
+                            <td><?php echo $list[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div>
+
+
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($list1); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $list1[$row][0]  ?></td>
+                            <td><?php echo $list1[$row][1]  ?></td>
+                            <td><?php echo $list1[$row][2]  ?></td>
+                            <td><?php echo $list1[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div>
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Belum Lulus Dan Belum Diambil</h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    <?php for ($row = 0; $row < count($listt); $row++) { ?>
+                        <tr style="border: 1px solid #ddd;padding: 70px;">
+                            <td><?php echo $row + 1 ?></td>
+                            <td><?php echo $listt[$row][0]  ?></td>
+                            <td><?php echo $listt[$row][1]  ?></td>
+                            <td><?php echo $listt[$row][2]  ?></td>
+                            <td><?php echo $listt[$row][3]  ?></td>
+                        </tr>
+                    <?php        } ?>
+
+                </table>
+
+            </div>
+ -->
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Sudah Lulus </h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    @foreach($listsLulus as $list)
+                    <tr style="border: 1px solid #ddd;padding: 70px;">
+                        <td>{{$no}}</td>
+                        <td>{{$list->namaMataKuliah}}</td>
+                        <td>{{$list->semester}}</td>
+                        <td>{{$list->sks}}</td>
+                        <td>{{$list->keterangan}}</td>
+                    </tr>
+                    <?php $no = $no + 1 ?>
+                    @endforeach
+                </table>
+
+            </div>
+
+
+
+            <div style="margin-top: 25px;" class="container bg-white mb-3 rounded">
+
+                <h2>Daftar Mata Kuliah Yang Pernah Tidak Lulus </h2>
+
+                <table class="table">
+
+                    <tr>
+                        <th scope="col">Nomor</th>
+
+                        <th scope="col">Nama Mata Kuliah</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Jumlah SKS</th>
+                        <th scope="col">Keterangan</th>
+                    </tr>
+                    <?php $no = 1 ?>
+
+                    @foreach($listsKosong as $list)
+                    <tr style="border: 1px solid #ddd;padding: 70px;">
+                        <td>{{$no}}</td>
+                        <td>{{$list->namaMataKuliah}}</td>
+                        <td>{{$list->semester}}</td>
+                        <td>{{$list->sks}}</td>
+                        <td>{{$list->keterangan}}</td>
+                    </tr>
+                    <?php $no = $no + 1 ?>
+                    @endforeach
+                </table>
+
+            </div>
+
 
         <?php } ?>
     <?php } ?>

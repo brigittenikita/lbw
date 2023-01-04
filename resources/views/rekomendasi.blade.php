@@ -103,12 +103,14 @@
 
                 @foreach($listsRekomendasi as $listLulus)
                 <tr style="border: 1px solid #ddd;padding: 70px;">
-                    <td>1</td>
-                    <td>{{$listLulus->namaMataKuliah}} </td>
-                    <td> {{$listLulus->kode}}</td>
-                    <td> {{$listLulus->semester}} </td>
+                    <td>{{$no }}</td>
+                    <td>{{$listLulus->kode}} </td>
+                    <td> {{$listLulus->namaMataKuliah}}</td>
+                    <td> {{$listLulus->sks}} </td>
                     <td> {{$listLulus->keterangan}} </td>
                 </tr>
+                <?php $no = $no + 1 ?>
+
                 @endforeach
 
             </table>
